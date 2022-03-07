@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Container,Row,Col,Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { cartDisplay } from '../../Redux/action/cartdisplay';
 import { cartItem, cartTotal } from '../../Redux/action/cartItem';
 import { withCommas } from '../helper';
 
 const Addtocart = () => {
+  const navigate=useNavigate();
   const dispatch= useDispatch();
   const cart= useSelector((state)=>state.cartProduct.cart_products);
-  const Total=useSelector((state)=>state.cartTotal.total_price)
+  const Total=useSelector((state)=>state.cartTotal.total_price);
   
   useEffect(()=>{
     let added=0;
@@ -40,7 +42,10 @@ const Addtocart = () => {
       </Modal.Body>
       <Modal.Footer style={{ 'flexDirection': 'column' }}>
         <p>Total Amount: <span>${withCommas(Total)}</span> </p>
-        {Total!=0?<Link to={`/Checkout`}><Button onClick={()=>dispatch(cartDisplay(false))} disabled={Total!= 0 ? false : true} >Checkout</Button></Link>:null}
+          
+        <Button onClick={()=>{dispatch(cartDisplay(false))
+          navigate("/Checkout");}} 
+         disabled={Total!= 0 ? false : true}>Checkout</Button>
         
       </Modal.Footer>
     </Modal>

@@ -17,6 +17,7 @@ const validationSchema = Yup.object({
 
 export const Checkout = () => {
   const cart = useSelector((state) => state.cartProduct.cart_products);
+  const Total=useSelector((state)=>state.cartTotal.total_price);
   const { values, errors, handleChange, handleBlur, handleSubmit, isSubmitting, setSubmitting } =
     useFormik({
       enableReinitialize: true,
@@ -66,6 +67,11 @@ export const Checkout = () => {
                   <td>{item.quantity}</td>
                 </tr>
               ))}
+              <tr>
+                  <td>Total</td>
+                  <td></td>
+                  <td>{Total}</td>
+                </tr>
             </tbody>
           </table>
         </div>

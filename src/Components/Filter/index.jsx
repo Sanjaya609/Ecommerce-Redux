@@ -17,20 +17,8 @@ const Filter = () => {
     const handleResetFilter=()=>{
         setRanges({...ranges,priceMin:0,priceMax:0,filterCategory:"default"})
     };
-    const handleApplyFilter=({priceMin,priceMax,filterCategory})=>{
-        let filteredProducts;
-        if (priceMin===0&&priceMax===0&&filterCategory==='default'){
-            filteredProducts=products;
-        }else{
-            filteredProducts=products.filter((product)=>{
-                let price=parseInt(product.price.slice(1));
-                let category=product.category[1];
-                let valid=price>=priceMin && price<=priceMax || category=== filterCategory;
-                console.log(priceMin,priceMax,filterCategory,price,valid);
-                return valid;
-            })  
-        }
-        dispatch(filteredProduct(filteredProducts));
+    const handleApplyFilter=(ranges)=>{
+        dispatch(filteredProduct(ranges));
         dispatch(filterModal(false));
     }
     return (

@@ -15,7 +15,22 @@ export const fetchProduct = () => async (dispatch) => {
     }
   };
 
-export const filteredProduct=(filteredProducts)=>{
+export const filteredProduct=(ranges)=>{
+  // console.log(filteredProducts);
+  // console.log(filteredProducts.priceMin,"here");
+  console.log(ranges.priceMin);
+  let filteredProducts;
+  if (ranges.priceMin===0&&ranges.priceMax===0&&ranges.filterCategory==='default'){
+      filteredProducts=data;
+  }else{
+      filteredProducts=data.filter((product)=>{
+          let price=parseInt(product.price.slice(1));
+          let category=product.category[1];
+          let valid=price>=ranges.priceMin && price<=ranges.priceMax || category=== ranges.filterCategory;
+          console.log(ranges.priceMin,ranges.priceMax,ranges.filterCategory,price,valid);
+          return valid;
+      })  
+  }
     return {
         type:FILTERED_PRODUCT,
         payload:filteredProducts,
